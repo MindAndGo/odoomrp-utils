@@ -18,7 +18,7 @@
 
 {
     "name": "Products Expiry Date - Extension",
-    "version": "1.0",
+    "version": "9.0.1.0",
     "depends": [
         "stock",
         "product_expiry",
@@ -30,15 +30,17 @@
         "Juan Ignacio Úbeda <juanignacioubeda@avanzosc.es>",
         "Pedro Manuel Baeza Romero <pedro.baeza@serviciosbaeza.com>",
         "Ana Juaristi Olalde <anajuaristi@avanzosc.es>",
-        "Mikel Arregi <mikelarregi@avanzosc.es>"
+        "Mikel Arregi <mikelarregi@avanzosc.es>",
+        "Florent THOMAS <florent.thomas@mind-and-go.com>"
     ],
     "category": "Tools",
     "website": "http://www.odoomrp.com",
     "summary": "",
     "data": [
         "views/production_lot_ext_view.xml",
+        "views/stock_product.xml",
         "views/stock_quant_view.xml",
-        "wizard/stock_transfer_details_view.xml",
+#        "wizard/stock_transfer_details_view.xml",
     ],
-    'installable': False,
+    'installable': True,
 }

@@ -8,7 +8,7 @@ from openerp import models, fields, api, exceptions, _
 
 class StockProductioLot(models.Model):
     _inherit = 'stock.production.lot'
-
+    
     @api.one
     @api.constrains('removal_date', 'alert_date', 'life_date', 'use_date')
     def _check_dates(self):

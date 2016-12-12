@@ -17,6 +17,7 @@
                     </attribute>
                 </xpath>
                 <field name="create_date" position="after">
+                    <field name="life_date"/>
                     <field name="expiry_state" />
                 </field>
             </field>
