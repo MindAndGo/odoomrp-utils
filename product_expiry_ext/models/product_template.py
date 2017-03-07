@@ -24,8 +24,14 @@ class ProductTemplate(models.Model):
     @api.multi
     def _get_closest_date(self):
         now = fields.Datetime.now()
-        for prod in self:            
-            dates = filter(lambda x: x.life_date >= now, [l for l in prod.lot_ids])
+        for prod in self:     
+            available_lots = []
+            for lot in prod.lot_ids :
+                stock = prod.with_context(
+                    lot_id=lot.id,
+                    )._product_available(name=None, arg=False)        
+                if stock[prod.id]['qty_available'] > 0.0 : available_lots.append(lot)
+            dates = filter(lambda x: x.life_date >= now, [l for l in available_lots])
             if len(dates) ==0 :
                 continue
             sort_dates = list([d.life_date for d in dates])
@@ -65,12 +71,19 @@ class ProductProduct(models.Model):
     def _get_closest_date(self):
         now = fields.Datetime.now()
         for prod in self:            
-            dates = filter(lambda x: x.life_date >= now, [l for l in prod.lot_ids])
+            available_lots = []
+            for lot in prod.lot_ids :
+                stock = prod.with_context(
+                    lot_id=lot.id,
+                    )._product_available(field_names=None, arg=False)        
+                if stock[prod.id]['qty_available'] > 0.0 : available_lots.append(lot)
+            dates = filter(lambda x: x.life_date >= now, [l for l in available_lots])
             if len(dates) ==0 :
                 continue
             sort_dates = list([d.life_date for d in dates])
             sort_dates.sort()
             prod.closest_expiry_date = sort_dates[0]
+            
 
     @api.multi
     def _get_lot_ids(self):
