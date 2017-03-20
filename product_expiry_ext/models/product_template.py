@@ -29,7 +29,7 @@ class ProductTemplate(models.Model):
             for lot in prod.lot_ids :
                 stock = prod.with_context(
                     lot_id=lot.id,
-                    )._product_available(name=None, arg=False)        
+                    ).sudo()._product_available(name=None, arg=False)        
                 if stock[prod.id]['qty_available'] > 0.0 : available_lots.append(lot)
             dates = filter(lambda x: x.life_date >= now, [l for l in available_lots])
             if len(dates) ==0 :
@@ -75,7 +75,7 @@ class ProductProduct(models.Model):
             for lot in prod.lot_ids :
                 stock = prod.with_context(
                     lot_id=lot.id,
-                    )._product_available(field_names=None, arg=False)        
+                    ).sudo()._product_available(field_names=None, arg=False)        
                 if stock[prod.id]['qty_available'] > 0.0 : available_lots.append(lot)
             dates = filter(lambda x: x.life_date >= now, [l for l in available_lots])
             if len(dates) ==0 :
